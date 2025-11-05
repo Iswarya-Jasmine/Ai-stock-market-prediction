@@ -1,0 +1,130 @@
+/* ===== BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: #1a1a1a;
+}
+
+/* ===== HEADER ===== */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 25px;
+  background-color: #fff; /* ✅ Removed green background */
+  border-bottom: 2px solid #e0e0e0;
+  box-shadow: none;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.logout-btn {
+  background-color: #000; /* ✅ Black button */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+.logout-btn:hover {
+  background-color: #333;
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard {
+  width: 85%;
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== CONTROL PANEL ===== */
+.selectors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.selector-section {
+  flex: 1;
+  min-width: 180px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+}
+
+select, input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f4f6f5;
+  color: #1a1a1a;
+}
+
+/* ===== PREDICT BUTTON ===== */
+.predict-btn {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px 28px;
+  transition: 0.3s;
+}
+.predict-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* ===== SUMMARY ===== */
+.summary-card {
+  background-color: #f0f8ff;
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 5px solid #007BFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary-card strong {
+  font-size: 1.1rem;
+}
+
+/* ===== CHART ===== */
+.chart-container {
+  margin-top: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+canvas {
+  width: 100%;
+  height: 400px;
+}

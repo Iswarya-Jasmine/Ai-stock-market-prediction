@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Sign Up</title>
+<style>
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #F9F8F4; /* sage mist */
+    color: black;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .auth-box {
+    background-color: #E3E7E1; /* sage mist */
+    padding: 18px 20px;
+    border-radius: 10px;
+    width: 280px;
+    color: black;
+    text-align: center;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  h2 {
+    color: #303033;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: black;
+  }
+
+  input {
+    width: 250px;
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #334155;
+    background-color: #F9F8F4;
+    color:Black;
+    font-size: 12px;
+    margin-bottom: 8px;
+    outline: none;
+  }
+
+  input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 5px rgba(56,189,248,0.3);
+  }
+
+  button {
+    width: 250px;
+    padding: 7px;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.2s;
+    margin-bottom: 6px;
+  }
+
+  button:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+
+  .toggle {
+    font-size: 11px;
+    color: #94a3b8;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+
+  .toggle span {
+    color: #38bdf8;
+    text-decoration: underline;
+  }
+
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="auth-box" id="authBox">
+  <h2 id="authTitle">🔐 Login</h2>
+  <form id="authForm">
+
+    <!-- Email (Signup only) -->
+    <div id="signupEmail" class="hidden">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter Email Address">
+    </div>
+
+    <label for="user">User ID</label>
+    <input type="text" id="user" placeholder="Enter User ID" required>
+
+    <label for="pass">Password</label>
+    <input type="password" id="pass" placeholder="Enter Password" required>
+
+    <!-- Confirm Password (Signup only) -->
+    <div id="signupConfirm" class="hidden">
+      <label for="confirm">Confirm Password</label>
+      <input type="password" id="confirm" placeholder="Confirm Password">
+    </div>
+
+    <button type="submit" id="authBtn">Login</button>
+  </form>
+  <div class="toggle" id="toggleText">
+    New here? <span id="toggleLink">Sign Up</span>
+  </div>
+</div>
+
+<script>
+const authForm = document.getElementById('authForm');
+const authTitle = document.getElementById('authTitle');
+const authBtn = document.getElementById('authBtn');
+const toggleLink = document.getElementById('toggleLink');
+const signupEmail = document.getElementById('signupEmail');
+const signupConfirm = document.getElementById('signupConfirm');
+
+let isLogin = true;
+
+// Toggle Login / Sign Up
+function toggleForm(){
+  isLogin = !isLogin;
+  if(isLogin){
+    authTitle.textContent = "🔐 Login";
+    authBtn.textContent = "Login";
+    signupEmail.classList.add('hidden');
+    signupConfirm.classList.add('hidden');
+    toggleLink.textContent = "Sign Up";
+    toggleLink.parentElement.firstChild.textContent = "New here? ";
+  } else {
+    authTitle.textContent = "📝 Sign Up";
+    authBtn.textContent = "Sign Up";
+    signupEmail.classList.remove('hidden');
+    signupConfirm.classList.remove('hidden');
+    toggleLink.textContent = "Login";
+    toggleLink.parentElement.firstChild.textContent = "Already have an account? ";
+  }
+}
+
+toggleLink.addEventListener('click', toggleForm);
+
+// Form submit
+authForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  const user = document.getElementById('user').value.trim();
+  const pass = document.getElementById('pass').value.trim();
+
+  if(!user || !pass) return alert('Please fill all required fields');
+
+  if(isLogin){
+    // Login
+    const saved = JSON.parse(localStorage.getItem(user));
+    if(saved && saved.password === pass){
+      window.location.href = 'index.html'; // Replace with your page
+    } else {
+      alert('Invalid User ID or Password');
+    }
+  } else {
+    // Sign Up
+    const email = document.getElementById('email').value.trim();
+    const confirm = document.getElementById('confirm').value.trim();
+
+    if(!email || !user || !pass || !confirm){
+      return alert('Please fill all fields');
+    }
+
+    if(pass !== confirm){
+      return alert('Passwords do not match');
+    }
+
+    if(localStorage.getItem(user)){
+      alert('User ID already exists. Choose another.');
+      return;
+    }
+
+    localStorage.setItem(user, JSON.stringify({email, password: pass}));
+    alert(`User signed up successfully! You can now login.`);
+    toggleForm(); // Switch to login
+  }
+});
+</script>
+
+</body>
+</html>
